@@ -47,7 +47,7 @@ class Application {
         /**
          * Undefined route
          */
-        if (!handled) response.notFound({ data: 'Route not found!' });
+        if (!handled) response.notFound('Route not found!');
 
         return;
       }

@@ -21,6 +21,8 @@
   },
   "dependencies": {
     "dotenv": "^16.0.0",
+    "handlebars": "^4.7.7",
+    "path-to-regexp": "^6.2.0",
     "pg": "^8.7.3"
   }
 }

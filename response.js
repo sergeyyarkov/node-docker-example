@@ -11,8 +11,8 @@ class Response {
     this.res = res;
   }
 
-  send(text) {
-    this.res.writeHead(200, { 'Content-Type': 'text/plain' });
+  send(text, status = 200) {
+    this.res.writeHead(status, { 'Content-Type': 'text/plain' });
     this.res.end(text);
   }
 
@@ -21,8 +21,8 @@ class Response {
     this.res.end(JSON.stringify(data));
   }
 
-  notFound(data) {
-    this.json(data, 404);
+  notFound(text) {
+    this.send(text, 404);
   }
 }
 
