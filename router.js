@@ -1,5 +1,5 @@
 import http from 'node:http';
-import util from 'node:util';
+import Response from './response.js';
 import { pathToRegexp } from 'path-to-regexp';
 import StringHelper from './helpers/string.js';
 
@@ -22,11 +22,12 @@ class Router {
   }
 
   /**
-   * This function checks for the existence of a route and calls its handler
+   * This function checks for the existence of a route
+   * and calls its middlewares and handler
    *
    * @param {http.ClientRequest} req
-   * @param {http.ServerResponse} res
-   * @returns {boolean} Is route has been handled
+   * @param {Response} res
+   * @returns
    */
   call(req, res) {
     const mask = `${req.method}:${StringHelper.delTrailingSlash(req.url)}`;
@@ -41,7 +42,7 @@ class Router {
        */
       if (this.routes.hasOwnProperty(mask)) {
         this.#middlewares(route, req, res).then(() => route.handler(req, res));
-        return true;
+        return;
       }
 
       /* Route url is not exact */
@@ -62,12 +63,12 @@ class Router {
           this.#middlewares(route, req, res).then(() =>
             route.handler(req, res)
           );
-          return true;
+          return;
         }
       }
     }
 
-    return false;
+    res.notFound('Page not found.');
   }
 
   /**

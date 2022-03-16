@@ -1,6 +1,20 @@
 import http from 'node:http';
+import fs from 'node:fs';
 import Response from './response.js';
 import db from './db.js';
+
+/**
+ * Render index page
+ *
+ * @param {http.ClientRequest} req
+ * @param {Response} res
+ */
+export const indexPageHandler = async (req, res) => {
+  const info = fs.readFileSync('./package.json', 'utf8');
+  const data = JSON.parse(info.toString());
+
+  res.render('./views/index.hbs', { app: { name: data.name } });
+};
 
 /**
  * GET - Get list of all artcles from database

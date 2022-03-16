@@ -38,23 +38,8 @@ class Application {
     this.server.on('request', (req, res) => {
       const response = new Response(req, res);
 
-      /**
-       * Reponse with API data
-       */
-      if (req.url.includes('api')) {
-        const handled = this.router.call(req, response);
-
-        /**
-         * Undefined route
-         */
-        if (!handled) response.notFound('Route not found!');
-        return;
-      }
-
-      /**
-       * Reponse with static files
-       */
-      response.send('Static Page.');
+      response.serve('public');
+      this.router.call(req, response);
     });
     this.server.listen(env.app.port, () =>
       console.log(`[LOG]: Server is running on port "${env.app.port}"`)

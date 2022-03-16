@@ -7,6 +7,7 @@ import {
   createArticleHandler,
   getArticleHandler,
   getArticlesHandler,
+  indexPageHandler,
 } from '../handlers.js';
 
 /**
@@ -14,6 +15,7 @@ import {
  */
 import { waitMiddleware } from '../middlewares.js';
 
-router.get('/api/articles', getArticlesHandler).middleware([waitMiddleware]);
-router.get('/api/articles/:id', getArticleHandler).middleware([waitMiddleware]);
-router.post('/api/article', createArticleHandler);
+router.get('/', indexPageHandler);
+router.get('/articles', getArticlesHandler).middleware([waitMiddleware]);
+router.get('/articles/:id', getArticleHandler).middleware([waitMiddleware]);
+router.post('/articles', createArticleHandler);
