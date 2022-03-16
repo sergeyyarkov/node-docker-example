@@ -14,14 +14,16 @@ class Router {
    *
    * @param {http.ClientRequest} req
    * @param {http.ServerResponse} res
-   * @returns
+   * @returns {boolean} Is route has been handled
    */
   call(req, res) {
+    const mask = `${req.method}:${req.url}`;
+
     /**
      * Find the exact route
      */
-    if (this.routes.hasOwnProperty(req.url)) {
-      this.routes[req.url].handler(req, res);
+    if (this.routes.hasOwnProperty(mask)) {
+      this.routes[mask].handler(req, res);
       return true;
     }
 
@@ -35,7 +37,7 @@ class Router {
       const route = this.routes[keys[i]];
       if (!route.options.exact && route.options.regexp !== undefined) {
         const match = req.url.match(route.options.regexp);
-        if (match) {
+        if (match && keys[i].includes(req.method)) {
           if (route.options.params !== undefined) {
             req.params = {};
             route.options.params.forEach((param) => {
@@ -59,6 +61,7 @@ class Router {
    * @param {boolean} exact
    */
   define(
+    method = 'GET',
     url,
     handler,
     options = { exact: true, regexp: undefined, params: undefined }
@@ -68,7 +71,8 @@ class Router {
       options.exact = false;
       options.regexp = pathToRegexp(url, options.params);
     }
-    this.routes[url] = {
+    this.routes[`${method}:${url}`] = {
+      method,
       handler,
       options,
     };

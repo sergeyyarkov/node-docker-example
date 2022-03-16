@@ -3,7 +3,7 @@ import Response from './response.js';
 import db from './db.js';
 
 /**
- * Get list of all artcles from database
+ * GET - Get list of all artcles from database
  *
  * @param {http.ClientRequest} req
  * @param {Response} res
@@ -14,7 +14,7 @@ export const getArticlesHandler = async (req, res) => {
 };
 
 /**
- * Get article by ID
+ * GET - Get article by ID
  *
  * @param {http.ClientRequest} req
  * @param {Response} res
@@ -39,4 +39,15 @@ export const getArticleHandler = async (req, res) => {
   }
 
   res.json({ data: data.rows });
+};
+
+/**
+ * POST - Create article
+ *
+ * @param {http.ClientRequest} req
+ * @param {Response} res
+ */
+export const createArticleHandler = async (req, res) => {
+  res.json({ data: `POST ${req.url}` });
+  return;
 };
