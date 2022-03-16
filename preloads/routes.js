@@ -9,6 +9,11 @@ import {
   getArticlesHandler,
 } from '../handlers.js';
 
-router.define('GET', '/api/articles', getArticlesHandler);
-router.define('GET', '/api/article/:id', getArticleHandler);
-router.define('POST', '/api/article', createArticleHandler);
+/**
+ * Middlewares
+ */
+import { helloMiddleware } from '../middlewares.js';
+
+router.get('/api/articles', getArticlesHandler).middleware([helloMiddleware]);
+router.get('/api/article/:id', getArticleHandler).middleware([helloMiddleware]);
+router.post('/api/article', createArticleHandler);
