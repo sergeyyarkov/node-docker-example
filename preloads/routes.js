@@ -12,8 +12,8 @@ import {
 /**
  * Middlewares
  */
-import { helloMiddleware } from '../middlewares.js';
+import { waitMiddleware } from '../middlewares.js';
 
-router.get('/api/articles', getArticlesHandler).middleware([helloMiddleware]);
-router.get('/api/article/:id', getArticleHandler).middleware([helloMiddleware]);
+router.get('/api/articles', getArticlesHandler).middleware([waitMiddleware]);
+router.get('/api/articles/:id', getArticleHandler).middleware([waitMiddleware]);
 router.post('/api/article', createArticleHandler);

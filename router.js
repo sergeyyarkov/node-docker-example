@@ -1,6 +1,17 @@
 import http from 'node:http';
+import util from 'node:util';
 import { pathToRegexp } from 'path-to-regexp';
 import StringHelper from './helpers/string.js';
+
+/**
+ * Single route type
+ * @typedef {{ method: string, handler: function, options: RouteOptions, middlewares: Array<function> }} Route
+ */
+
+/**
+ * Route options type
+ * @typedef {{ params: Array, exact: boolean, regexp: RegExp }} RouteOptions
+ */
 
 class Router {
   constructor() {
@@ -29,8 +40,7 @@ class Router {
        * Find exact route
        */
       if (this.routes.hasOwnProperty(mask)) {
-        this.#middlewares(route, req, res);
-        route.handler(req, res);
+        this.#middlewares(route, req, res).then(() => route.handler(req, res));
         return true;
       }
 
@@ -49,8 +59,9 @@ class Router {
               req.params[param.name] = match[1];
             });
           }
-          this.#middlewares(route, req, res);
-          route.handler(req, res);
+          this.#middlewares(route, req, res).then(() =>
+            route.handler(req, res)
+          );
           return true;
         }
       }
@@ -62,20 +73,20 @@ class Router {
   /**
    * This function will execute every middleware of a route
    *
-   * @param {*} route
-   * @param {http.ClientRequest} req
-   * @param {Response} res
+   * @param {Route} route Route
+   * @param {http.ClientRequest} req HTTP Request
+   * @param {Response} res HTTP Response
    * @returns
    */
-  #middlewares(route, req, res) {
-    if (!route || !route.middlewares || !Array.isArray(route.middleware)) {
+  async #middlewares(route, req, res) {
+    if (!route || !route.middlewares || !Array.isArray(route.middlewares)) {
       return;
     }
 
     const middlewares = route.middlewares.flat();
     if (middlewares.length !== 0) {
       for (const middleware of middlewares) {
-        middleware(req, res);
+        await middleware(req, res);
       }
     }
   }
