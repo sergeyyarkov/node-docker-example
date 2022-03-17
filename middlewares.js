@@ -15,5 +15,5 @@ export const waitMiddleware = async (req, res) => {
     });
   };
 
-  await wait(50);
+  await wait(10);
 };

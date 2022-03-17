@@ -21,7 +21,11 @@ export const indexPageHandler = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.render('./views/500.hbs', { title: '500 | Internal server error ' });
+    res.render(
+      './views/500.hbs',
+      { title: '500 | Internal server error ' },
+      500
+    );
   }
 };
 
@@ -51,10 +55,17 @@ export const getArticleHandler = async (req, res) => {
       return;
     }
 
-    res.json({ data: data.rows });
+    res.render('./views/article.hbs', {
+      title: data.rows[0].title,
+      article: data.rows[0],
+    });
   } catch (error) {
     console.error(error);
-    res.render('./views/500.hbs', { title: '500 | Internal server error ' });
+    res.render(
+      './views/500.hbs',
+      { title: '500 | Internal server error ' },
+      500
+    );
   }
 };
 

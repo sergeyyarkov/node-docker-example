@@ -14,6 +14,6 @@ import {
  */
 import { waitMiddleware } from '../middlewares.js';
 
-router.get('/', indexPageHandler);
+router.get('/', indexPageHandler).middleware([waitMiddleware]);
 router.get('/articles/:id', getArticleHandler).middleware([waitMiddleware]);
 router.post('/articles', createArticleHandler);

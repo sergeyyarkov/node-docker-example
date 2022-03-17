@@ -1,0 +1,20 @@
+<html lang='en'>
+  {{> head }}
+  <body>
+    <main class='app'>
+      <a href="/">&lt; return to home</a>
+      <div class='app-heading article-heading'>
+        <h1>{{ article.title }}</h1>
+        <span>{{ article.created_at }}</span>
+      </div>
+      <div class="app-body">
+        <p>{{ article.description }}</p>
+      <hr />
+        <article>
+          <p>{{ article.body }}</p>
+        </article>
+      </div>
+      {{> footer }}
+    </main>
+  </body>
+</html>

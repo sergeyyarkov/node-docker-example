@@ -1,8 +1,12 @@
 body {
   font-family: monospace;
   text-align: justify;
-  margin: 75px;
-  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5rem;
+  max-width: 900px;
+  font-size: 16px;
+  padding: 15px;
 }
 
 .app .app-heading {
@@ -11,8 +15,23 @@ body {
   align-items: center;
 }
 
+.app .app-tag {
+  background-color: #000;
+  color: #fff;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 2px;
+  font-size: 18px;
+  user-select: none;
+}
+
+.app .article-heading {
+  display: block;
+}
+
 .app .app-body article {
   margin-top: 2rem;
+  line-height: 1.3rem;
 }
 
 .app .app-footer {
@@ -31,9 +50,14 @@ body {
   text-align: left;
 }
 
+.app .app-footer span {
+  display: block;
+  margin-bottom: 1rem;
+}
+
 .app .app-footer img {
   width: 11rem;
-  margin: 0 30px;
+  margin: 10px 30px;
 }
 
 .app .app-footer .nodejs-logo,
