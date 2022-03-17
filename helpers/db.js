@@ -19,6 +19,7 @@ class DbHelper {
       await client.end();
     } catch (error) {
       console.error(error);
+      process.exit(1);
     }
   }
 }

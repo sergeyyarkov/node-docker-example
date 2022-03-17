@@ -30,6 +30,11 @@ class Response {
     this.send(text, 404);
   }
 
+  serverError(error, text = '500 | Internal server error') {
+    console.error(error);
+    this.render('./views/500.hbs', { title: text }, 500);
+  }
+
   /**
    * Response with rendered page
    *

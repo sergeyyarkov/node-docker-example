@@ -1,5 +1,6 @@
 import http from 'node:http';
 import fs from 'node:fs';
+import qs from 'node:querystring';
 import mime from 'mime-types';
 import hbs from 'handlebars';
 import env from './env.js';

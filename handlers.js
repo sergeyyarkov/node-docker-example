@@ -20,12 +20,7 @@ export const indexPageHandler = async (req, res) => {
       articles: data.rows,
     });
   } catch (error) {
-    console.error(error);
-    res.render(
-      './views/500.hbs',
-      { title: '500 | Internal server error ' },
-      500
-    );
+    res.serverError(error);
   }
 };
 
@@ -60,22 +55,21 @@ export const getArticleHandler = async (req, res) => {
       article: data.rows[0],
     });
   } catch (error) {
-    console.error(error);
-    res.render(
-      './views/500.hbs',
-      { title: '500 | Internal server error ' },
-      500
-    );
+    res.serverError(error);
   }
 };
 
 /**
  * POST - Create article
  *
- * @param {http.ClientRequest} req
+ * @param {http.RequestOptions} req
  * @param {Response} res
  */
 export const createArticleHandler = async (req, res) => {
-  res.json({ data: `POST ${req.url}` });
-  return;
+  try {
+    res.json({ data: `POST ${req.url}` });
+    return;
+  } catch (error) {
+    res.serverError(error);
+  }
 };
