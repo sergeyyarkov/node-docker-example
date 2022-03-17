@@ -1,3 +1,47 @@
 body {
   font-family: monospace;
+  text-align: justify;
+  margin: 75px;
+  max-width: 600px;
+}
+
+.app .app-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app .app-body article {
+  margin-top: 2rem;
+}
+
+.app .app-footer {
+  text-align: center;
+}
+
+.app .app-footer .app-footer__images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.app .app-footer {
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.app .app-footer img {
+  width: 11rem;
+  margin: 0 30px;
+}
+
+.app .app-footer .nodejs-logo,
+.app .app-footer .nginx-logo {
+  width: 7rem;
+}
+
+.app .app-footer__description {
+  margin-top: 1rem;
+  text-align: center;
 }

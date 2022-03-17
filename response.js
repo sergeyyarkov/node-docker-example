@@ -47,24 +47,6 @@ class Response {
       throw error;
     }
   }
-
-  /**
-   * Response with static files
-   *
-   * @param {string} path Path to static files
-   */
-  serve(path) {
-    const files = FileHelper.readDirRecursive(path);
-    for (const file of files) {
-      router.define('GET', `/${file}`, (req, { res }) => {
-        const data = fs.readFileSync(file);
-        const contentType = mime.lookup(file);
-
-        res.writeHead(200, { 'Content-Type': contentType });
-        res.end(data);
-      });
-    }
-  }
 }
 
 export default Response;

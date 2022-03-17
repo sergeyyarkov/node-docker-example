@@ -68,7 +68,7 @@ class Router {
       }
     }
 
-    res.notFound('Page not found.');
+    res.render('./views/404.hbs', { title: '404 | Page not found' }, 404);
   }
 
   /**

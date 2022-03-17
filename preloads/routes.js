@@ -6,7 +6,6 @@ import router from '../router.js';
 import {
   createArticleHandler,
   getArticleHandler,
-  getArticlesHandler,
   indexPageHandler,
 } from '../handlers.js';
 
@@ -16,6 +15,5 @@ import {
 import { waitMiddleware } from '../middlewares.js';
 
 router.get('/', indexPageHandler);
-router.get('/articles', getArticlesHandler).middleware([waitMiddleware]);
 router.get('/articles/:id', getArticleHandler).middleware([waitMiddleware]);
 router.post('/articles', createArticleHandler);

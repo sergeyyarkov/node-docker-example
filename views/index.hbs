@@ -1,12 +1,39 @@
 <html lang='en'>
-  <head>
-    <meta charset='UTF-8' />
-    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
-    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-    <title>{{app.name}}</title>
-    <link rel='stylesheet' href='public/css/style.css' />
-  </head>
+  {{> head }}
   <body>
-    Index Page.
+    <main class='app'>
+      <div class='app-heading'>
+        <h1>Articles (5)</h1>
+        <small>{{title}}</small>
+      </div>
+      <div class='app-description'>
+        <p>This app showcases a website built with NodeJS. The site has a set of
+          articles, each article has a separate page, all data about the article
+          is stored in the PostgreSQL database. Docker is used to deploy the
+          application.</p>
+      </div>
+      
+      <hr />
+      <div class="app-body">
+        {{#unless articles.length }}
+          <p style="text-align: center;margin: 30px 0;">
+            No articles found.
+          </p>
+        {{/unless}}
+        {{#each articles}}
+          <article>
+            <h2>
+              <a href='articles/{{this.id}}'>
+                {{ this.title }}
+              </a>
+            </h2>
+            <p>{{ this.description }}</p>
+            <time>{{ this.created_at }}</time>
+          </article>
+          <hr />
+        {{/each}}
+      </div>
+      {{> footer }}
+    </main>
   </body>
 </html>

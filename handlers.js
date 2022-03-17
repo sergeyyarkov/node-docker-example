@@ -10,21 +10,19 @@ import db from './db.js';
  * @param {Response} res
  */
 export const indexPageHandler = async (req, res) => {
-  const info = fs.readFileSync('./package.json', 'utf8');
-  const data = JSON.parse(info.toString());
+  try {
+    const info = fs.readFileSync('./package.json', 'utf8');
+    const appInfo = JSON.parse(info.toString());
+    const data = await db.client.query('SELECT * FROM "articles"');
 
-  res.render('./views/index.hbs', { app: { name: data.name } });
-};
-
-/**
- * GET - Get list of all artcles from database
- *
- * @param {http.ClientRequest} req
- * @param {Response} res
- */
-export const getArticlesHandler = async (req, res) => {
-  const data = await db.client.query('SELECT * FROM "articles"');
-  res.json({ data: data.rows });
+    res.render('./views/index.hbs', {
+      title: appInfo.name,
+      articles: data.rows,
+    });
+  } catch (error) {
+    console.error(error);
+    res.render('./views/500.hbs', { title: '500 | Internal server error ' });
+  }
 };
 
 /**
@@ -34,25 +32,30 @@ export const getArticlesHandler = async (req, res) => {
  * @param {Response} res
  */
 export const getArticleHandler = async (req, res) => {
-  /**
-   * Validate url `id` param
-   */
-  if (!/^\d+$/.test(req.params.id)) {
-    res.json({ data: {}, error: 'Parameters is not valid!' }, 422);
-    return;
+  try {
+    /**
+     * Validate url `id` param
+     */
+    if (!/^\d+$/.test(req.params.id)) {
+      res.render('./views/404.hbs', { title: '404 | Article not found.' }, 404);
+      return;
+    }
+
+    const data = await db.client.query(
+      'SELECT * from "articles" WHERE "id" = $1',
+      [req.params.id]
+    );
+
+    if (data.rows.length === 0) {
+      res.render('./views/404.hbs', { title: '404 | Article not found.' }, 404);
+      return;
+    }
+
+    res.json({ data: data.rows });
+  } catch (error) {
+    console.error(error);
+    res.render('./views/500.hbs', { title: '500 | Internal server error ' });
   }
-
-  const data = await db.client.query(
-    'SELECT * from "articles" WHERE "id" = $1',
-    [req.params.id]
-  );
-
-  if (data.rows.length === 0) {
-    res.json({ data: {}, error: 'Article not found.' }, 404);
-    return;
-  }
-
-  res.json({ data: data.rows });
 };
 
 /**
