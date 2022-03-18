@@ -26,5 +26,12 @@
     "mime-types": "^2.1.35",
     "path-to-regexp": "^6.2.0",
     "pg": "^8.7.3"
+  },
+  "imports": {
+    "#app/*": "./*.js",
+    "#controllers/*": "./controllers/*.js",
+    "#models/*": "./models/*.js",
+    "#middlewares/*": "./middlewares/*.js",
+    "#helpers/*": "./helpers/*.js"
   }
 }

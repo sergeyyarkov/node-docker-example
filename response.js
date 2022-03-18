@@ -1,9 +1,6 @@
 import http from 'node:http';
 import fs from 'node:fs';
 import hbs from 'handlebars';
-import mime from 'mime-types';
-import router from './router.js';
-import FileHelper from './helpers/file.js';
 
 class Response {
   /**

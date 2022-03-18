@@ -1,19 +1,18 @@
-import router from '../router.js';
+/**
+ * Router
+ */
+import router from '#app/router';
 
 /**
- * Handlers
+ * Controllers
  */
-import {
-  createArticleHandler,
-  getArticleHandler,
-  indexPageHandler,
-} from '../handlers.js';
+import ArticleController from '#controllers/ArticleController';
 
 /**
  * Middlewares
  */
-import { waitMiddleware } from '../middlewares.js';
+import WaitMiddleware from '#middlewares/WaitMiddleware';
 
-router.get('/', indexPageHandler).middleware([waitMiddleware]);
-router.get('/articles/:id', getArticleHandler).middleware([waitMiddleware]);
-router.post('/articles', createArticleHandler);
+router.get('/', ArticleController.index).middleware([WaitMiddleware.handle]);
+router.get('/articles/:id', ArticleController.show);
+router.post('/articles', ArticleController.create);
