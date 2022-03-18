@@ -27,6 +27,11 @@ class Response {
     this.send(text, 404);
   }
 
+  redirect(location) {
+    this.res.writeHead(302, { Location: location });
+    this.res.end();
+  }
+
   serverError(error, text = '500 | Internal server error') {
     console.error(error);
     this.render('./views/500.hbs', { title: text }, 500);

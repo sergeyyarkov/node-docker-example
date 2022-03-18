@@ -1,7 +1,12 @@
 import http from 'node:http';
-import Response from './response.js';
+import qs from 'node:querystring';
 import { pathToRegexp } from 'path-to-regexp';
-import StringHelper from './helpers/string.js';
+import Response from '#app/response';
+
+/**
+ * Helpers
+ */
+import StringHelper from '#helpers/string';
 
 /**
  * Single route type
@@ -29,10 +34,12 @@ class Router {
    * @param {Response} res
    * @returns
    */
-  call(req, res) {
+  async call(req, res) {
     const mask = `${req.method}:${StringHelper.delTrailingSlash(req.url)}`;
     const keys = Object.keys(this.routes);
     let i = keys.length;
+
+    await this.#collectData(req, res);
 
     while (i--) {
       let route = this.routes[mask];
@@ -89,6 +96,30 @@ class Router {
       for (const middleware of middlewares) {
         await middleware(req, res);
       }
+    }
+  }
+
+  async #collectData(req, res) {
+    /**
+     * Collect POST data
+     */
+    if (
+      req.method === 'POST' &&
+      req.headers['content-type'] === 'application/x-www-form-urlencoded'
+    ) {
+      const buffers = [];
+
+      for await (const chunk of req) {
+        if (
+          req.method === 'POST' &&
+          req.headers['content-type'] === 'application/x-www-form-urlencoded'
+        ) {
+          buffers.push(chunk);
+        }
+      }
+
+      const data = qs.parse(Buffer.concat(buffers).toString());
+      req['getPostData'] = () => data;
     }
   }
 

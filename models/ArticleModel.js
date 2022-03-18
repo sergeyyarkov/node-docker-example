@@ -18,8 +18,8 @@ class ArticleModel {
    */
   static async getAll() {
     try {
-      const data = await db.client.query('SELECT * FROM "articles"');
-      return data.rows;
+      const result = await db.client.query('SELECT * FROM "articles"');
+      return result.rows;
     } catch (error) {
       throw error;
     }
@@ -33,14 +33,14 @@ class ArticleModel {
    */
   static async getById(id) {
     try {
-      const data = await db.client.query(
+      const result = await db.client.query(
         'SELECT * from "articles" WHERE "id" = $1',
         [id]
       );
 
-      if (data.rows.length === 0) return null;
+      if (result.rows.length === 0) return null;
 
-      return data.rows[0];
+      return result.rows[0];
     } catch (error) {
       throw error;
     }
@@ -63,12 +63,12 @@ class ArticleModel {
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       });
-      const article = await db.client.query(
-        `INSERT INTO "articles" ("id", "title", "description", "body", "created_at", "updated_at") VALUES($1, $2, $3, $4, $5, $6)`,
+      const result = await db.client.query(
+        `INSERT INTO "articles" ("id", "title", "description", "body", "created_at", "updated_at") VALUES($1, $2, $3, $4, $5, $6) RETURNING *`,
         values
       );
 
-      return article;
+      return result.rows[0];
     } catch (error) {
       throw error;
     }

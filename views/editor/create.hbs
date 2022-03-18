@@ -1,0 +1,26 @@
+<html lang='en'>
+  {{> head }}
+  <body>
+    <main class='app'>
+      <a href="/">&lt; return to home</a>
+      <div class='app-heading editor-heading'>
+        <h1>Create new article</h1>
+        <p>Fill in the required fields to create a new article</p>
+      </div>
+      <div class="app-body">
+      <hr />
+        <div class="app-body__editor">
+          <div class="editor-form">
+            <form action="/articles" method="post" enctype="application/x-www-form-urlencoded">
+              <input placeholder="e.g. My first nice article" type="text" name="title" id="title" required="true">
+              <textarea placeholder="Description" name="description" id="description" cols="30" rows="10" required="true"></textarea>
+              <textarea placeholder="Content" class="textarea-body" name="body" id="body" cols="30" rows="20" required="true"></textarea>
+            <button type="submit">Create</button>
+          </form>
+          </div>
+        </div>
+      </div>
+      {{> footer }}
+    </main>
+  </body>
+</html>

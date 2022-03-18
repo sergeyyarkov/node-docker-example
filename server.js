@@ -1,6 +1,5 @@
 import http from 'node:http';
 import fs from 'node:fs';
-import qs from 'node:querystring';
 import path from 'node:path';
 import mime from 'mime-types';
 import hbs from 'handlebars';
@@ -9,7 +8,7 @@ import db from '#app/db';
 import router from '#app/router';
 import Response from '#app/response';
 import FileHelper from '#helpers/file';
-import './preloads/index.js';
+import '#app/preloads/index';
 
 class Application {
   constructor() {
@@ -44,17 +43,7 @@ class Application {
   #handle() {
     this.server.on('request', async (req, res) => {
       const response = new Response(req, res);
-      this.router.call(req, response);
-
-      // const buffer = Buffer.alloc(parseInt(req.headers['content-length'], 10));
-
-      // req.on('data', (chunk) => {
-      //   if (req.method === 'POST') {
-      //     console.log(chunk);
-      //     // console.log(buffer.toString());
-      //     // const buffer = Buffer.alloc(chunk.length)
-      //   }
-      // });
+      await this.router.call(req, response);
     });
     this.server.listen(env.app.port, () =>
       console.log(`[LOG]: Server is running on port "${env.app.port}"`)

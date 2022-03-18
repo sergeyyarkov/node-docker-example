@@ -1,3 +1,6 @@
-import DbHelper from './helpers/db.js';
+/**
+ * Helpers
+ */
+import DbHelper from '#helpers/db';
 
 DbHelper.runQueryFromFile('sql/seed.sql');

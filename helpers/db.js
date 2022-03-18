@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import db from '../db.js';
+import db from '#app/db';
 
 class DbHelper {
   /**

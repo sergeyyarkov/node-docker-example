@@ -1,5 +1,5 @@
 import pg from 'pg';
-import env from './env.js';
+import env from '#app/env';
 
 class Database {
   constructor() {

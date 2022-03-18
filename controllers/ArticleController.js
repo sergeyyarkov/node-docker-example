@@ -81,8 +81,15 @@ class ArticleController {
    */
   static async create(req, res) {
     try {
-      res.json({ data: `POST ${req.url}` });
-      return;
+      const data = req.getPostData();
+      if (data && data.title && data.description && data.body) {
+        const article = await ArticleModel.create({
+          title: data.title,
+          description: data.description,
+          body: data.body,
+        });
+        res.redirect(`/articles/${article.id}`);
+      }
     } catch (error) {
       res.serverError(error);
     }

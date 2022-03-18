@@ -1,5 +1,8 @@
-body {
+* {
   font-family: monospace;
+}
+
+body {
   text-align: justify;
   margin-left: auto;
   margin-right: auto;
@@ -7,6 +10,28 @@ body {
   max-width: 900px;
   font-size: 16px;
   padding: 15px;
+}
+
+button {
+  cursor: pointer;
+  padding: 5px 20px;
+}
+
+input {
+  padding: 7px 5px;
+  font-size: 16px;
+}
+
+textarea {
+  resize: none;
+  font-size: 16px;
+  padding: 7px 5px;
+}
+
+.textarea-body {
+  border: none;
+  border-bottom: 1px solid;
+  outline: none;
 }
 
 .app .app-heading {
@@ -25,13 +50,9 @@ body {
   user-select: none;
 }
 
-.app .article-heading {
+.app .article-heading,
+.app .editor-heading {
   display: block;
-}
-
-.app .app-body article {
-  margin-top: 2rem;
-  line-height: 1.3rem;
 }
 
 .app .app-footer {
@@ -68,4 +89,10 @@ body {
 .app .app-footer__description {
   margin-top: 1rem;
   text-align: center;
+}
+
+.app .app-body .app-body__editor form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }

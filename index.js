@@ -1,4 +1,4 @@
-import Application from './server.js';
+import Application from '#app/server';
 
 const app = new Application();
 
