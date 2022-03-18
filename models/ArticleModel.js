@@ -14,6 +14,7 @@ import db from '#app/db';
 class ArticleModel {
   /**
    * Get list of articles
+   *
    * @returns {Promise<Array<Article>>} List of articles
    */
   static async getAll() {
@@ -69,6 +70,19 @@ class ArticleModel {
       );
 
       return result.rows[0];
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Delete article by `id`
+   *
+   * @param {string} id
+   */
+  static async delete(id) {
+    try {
+      await db.client.query(`DELETE FROM "articles" WHERE id = $1`, [id]);
     } catch (error) {
       throw error;
     }

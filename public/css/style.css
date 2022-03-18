@@ -55,6 +55,16 @@ textarea {
   display: block;
 }
 
+.app article .article-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.app article .article-heading button {
+  padding: 5px;
+}
+
 .app .app-footer {
   text-align: center;
 }

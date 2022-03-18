@@ -40,8 +40,7 @@ class ArticleController {
       /**
        * Validate url `id` param
        */
-      const id = req.params.id;
-      if (!/^\d+$/.test(id)) {
+      if (!req.params || !/^\d+$/.test(req.params.id)) {
         res.render(
           './views/404.hbs',
           { title: '404 | Article not found.' },
@@ -50,7 +49,7 @@ class ArticleController {
         return;
       }
 
-      const article = await ArticleModel.getById(id);
+      const article = await ArticleModel.getById(req.params.id);
 
       /**
        * Not found
@@ -90,6 +89,29 @@ class ArticleController {
         });
         res.redirect(`/articles/${article.id}`);
       }
+    } catch (error) {
+      res.serverError(error);
+    }
+  }
+
+  /**
+   * Delete article by `id`
+   *
+   * @param {http.ClientRequest} req
+   * @param {Response} res
+   */
+  static async delete(req, res) {
+    try {
+      /**
+       * Validate url `id` param
+       */
+      if (!req.params || !/^\d+$/.test(req.params.id)) {
+        res.render('./views/403.hbs', { title: '403 | Bad request.' }, 403);
+        return;
+      }
+
+      await ArticleModel.delete(req.params.id);
+      res.redirect(`/`);
     } catch (error) {
       res.serverError(error);
     }

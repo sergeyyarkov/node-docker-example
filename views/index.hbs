@@ -23,13 +23,22 @@
         {{/unless}}
         {{#each articles}}
           <article>
-            <h2>
-              <a href='articles/{{this.id}}'>
-                {{ this.title }}
-              </a>
-            </h2>
-            <p>{{ this.description }}</p>
-            <time>{{ this.created_at }}</time>
+            <div class="article-heading">
+              <h2>
+                <a href='articles/{{ this.id }}'>
+                  {{ this.title }}
+                </a>
+              </h2>
+              <form method='post' action='/articles/{{ this.id }}'>
+                <button  type="submit">&#x2715;</button>
+             </form>
+            </div>
+            <div class="article-description">
+              <p>{{ this.description }}</p>
+            </div>
+            <div class="article-time">
+              <time>{{ this.created_at }}</time>
+            </div>
           </article>
           <hr />
         {{/each}}

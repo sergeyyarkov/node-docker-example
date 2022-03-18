@@ -179,6 +179,16 @@ class Router {
   post(url, handler) {
     return this.define('POST', url, handler);
   }
+
+  /**
+   * DELETE Method route
+   *
+   * @param {*} url
+   * @param {*} handler
+   */
+  delete(url, handler) {
+    return this.define('DELETE', url, handler);
+  }
 }
 
 export default new Router();
