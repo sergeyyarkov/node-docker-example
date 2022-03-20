@@ -1,5 +1,5 @@
 import http from 'node:http';
-import Response from '#app/Response';
+import Response from '#app/response';
 
 class EditorController {
   /**

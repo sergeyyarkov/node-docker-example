@@ -1,6 +1,6 @@
 import http from 'node:http';
 import fs from 'node:fs';
-import Response from '#app/Response';
+import Response from '#app/response';
 
 /**
  * Models
