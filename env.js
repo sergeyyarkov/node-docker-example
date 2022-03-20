@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
 
-dotenv.config({ path: process.cwd() + '/.env' });
+if (process.env.NODE_ENV !== 'production') {
+  dotenv.config({ path: process.cwd() + '/.env' });
+}
 
 const env = {
   app: {
