@@ -13,13 +13,6 @@ RUN npm ci --only-production
 
 FROM base as production
 
-ENV NODE_ENV=production
-ENV PG_HOST=localhost
-ENV PG_PORT=5432
-ENV PG_USER=postgres
-ENV PG_PASSWORD=1234
-ENV PG_DB_NAME=articles
-
 COPY --chown=node:node ./package*.json ./
 RUN npm ci --production
 COPY --chown=node:node . .

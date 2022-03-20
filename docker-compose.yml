@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  backend:
+    container_name: node-docker-example
+    restart: always
+    build:
+      context: .
+      target: production
+    ports:
+      - ${PORT}:${PORT}
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      - PG_HOST=postgres
+      - PG_PORT=5432
+      - PG_USER=postgres
+      - PG_PASSWORD=1234
+      - PG_DB_NAME=articles
+    volumes:
+      - ./:/home/node/app
+    command: dumb-init node index.js
+    depends_on:
+      - postgres
+  postgres:
+    container_name: postgres
+    image: postgres:14
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${PG_DB_NAME}
+    ports:
+      - 5432:5432
+volumes:
+  postgres_volume:
