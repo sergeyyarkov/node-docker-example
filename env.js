@@ -6,7 +6,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const env = {
   app: {
-    port: parseInt(process.env.PORT, 10),
+    port: parseInt(process.env.PORT, 10) || 4000,
   },
   db: {
     user: process.env.PG_USER.toString(),

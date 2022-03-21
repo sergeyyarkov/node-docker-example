@@ -1,8 +1,18 @@
 version: '3.8'
 
 services:
+  nginx:
+    container_name: nginx
+    restart: always
+    image: nginx:latest
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 80:80
+    depends_on:
+      - backend
   backend:
-    container_name: node-docker-example
+    container_name: nodejs
     restart: always
     build:
       context: .
