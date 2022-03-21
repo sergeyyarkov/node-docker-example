@@ -38,6 +38,8 @@ services:
     image: postgres:14
     volumes:
       - postgres_volume:/var/lib/postgresql/data
+      - ./sql/schema_init.sql:/docker-entrypoint-initdb.d/schema_init.sql
+      - ./sql/seed.sql:/docker-entrypoint-initdb.d/seed.sql
     environment:
       POSTGRES_USER: ${PG_USER}
       POSTGRES_PASSWORD: ${PG_PASSWORD}
