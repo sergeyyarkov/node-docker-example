@@ -9,21 +9,28 @@ application.
 
 ## Folder structure
 
-...
+```text
+.
+└── .
+    ├── controllers - contains handlers for http requests
+    ├── helpers - some string, file and database helper functions
+    ├── middlewares - contains functions that will execute before the handler is executed
+    ├── models - contains entities for their creation or getting
+    ├── nginx - nginx web server config or certificate will place here
+    ├── preloads - every file in this folder will be executed before starting the server
+    ├── public - contains static files for http response
+    ├── scripts - some bash scripts
+    ├── sql - database ".sql" files for querying
+    └── views - file for page rendering
+```
 
 ## How to deploy
 
-```bash
-# Clone
-git clone https://github.com/sergeyyarkov/node-docker-example.git .
+- 1. Clone this repository `git clone https://github.com/sergeyyarkov/node-docker-example.git .`
+- 2. Configure enviroment variables in `docker-compose.yml` if you need to
+- 3. Build and run application with `docker compose up --build`
 
-# Build
-docker compose build
+## Requirements
 
-# Run
-docker compose up
-```
-
-## Envitoment variables
-
-...
+- Node.js >= v14.13.0
+- Docker
