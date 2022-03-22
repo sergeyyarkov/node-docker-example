@@ -21,9 +21,7 @@ services:
       target: production
       dockerfile: Dockerfile
     ports:
-      - ${PORT}:${PORT}
-    env_file:
-      - .env
+      - 4000:4000
     environment:
       - NODE_ENV=production
       - PG_HOST=postgres
@@ -55,9 +53,9 @@ services:
       - ./sql/schema_init.sql:/docker-entrypoint-initdb.d/schema_init.sql
       - ./sql/seed.sql:/docker-entrypoint-initdb.d/seed.sql
     environment:
-      POSTGRES_USER: ${PG_USER}
-      POSTGRES_PASSWORD: ${PG_PASSWORD}
-      POSTGRES_DB: ${PG_DB_NAME}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: articles
     ports:
       - 5432:5432
     networks:
