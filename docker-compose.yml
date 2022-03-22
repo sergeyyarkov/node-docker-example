@@ -10,13 +10,16 @@ services:
     ports:
       - 80:80
     depends_on:
-      - backend
-  backend:
+      - nodejs
+    networks:
+      - app-network
+  nodejs:
     container_name: nodejs
     restart: always
     build:
       context: .
       target: production
+      dockerfile: Dockerfile
     ports:
       - ${PORT}:${PORT}
     env_file:
@@ -30,7 +33,18 @@ services:
       - PG_DB_NAME=articles
     volumes:
       - ./:/home/node/app
-    command: dumb-init node index.js
+      - node_modules:/home/node/app/node_modules
+    command:
+      [
+        './scripts/wait-for.sh',
+        'postgres:5432',
+        '--',
+        'dumb-init',
+        'node',
+        'index.js',
+      ]
+    networks:
+      - app-network
     depends_on:
       - postgres
   postgres:
@@ -46,5 +60,11 @@ services:
       POSTGRES_DB: ${PG_DB_NAME}
     ports:
       - 5432:5432
+    networks:
+      - app-network
 volumes:
   postgres_volume:
+  node_modules:
+networks:
+  app-network:
+    driver: bridge
