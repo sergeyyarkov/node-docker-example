@@ -16,5 +16,6 @@ FROM base as production
 COPY --chown=node:node ./package*.json ./
 RUN npm ci --production
 COPY --chown=node:node . .
+RUN ["chmod", "+x", "./scripts/wait-for.sh"]
 EXPOSE 4000
 CMD ["dumb-init", "node", "index.js"]

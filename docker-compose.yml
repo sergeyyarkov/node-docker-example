@@ -32,15 +32,8 @@ services:
     volumes:
       - ./:/home/node/app
       - node_modules:/home/node/app/node_modules
-    command:
-      [
-        './scripts/wait-for.sh',
-        'postgres:5432',
-        '--',
-        'dumb-init',
-        'node',
-        'index.js',
-      ]
+    entrypoint: ['./scripts/wait-for.sh', 'postgres:5432', '--']
+    command: ['dumb-init', 'node', 'index.js']
     networks:
       - app-network
     depends_on:
