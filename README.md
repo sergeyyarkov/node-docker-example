@@ -7,6 +7,8 @@ articles, each article has a separate page, all data about the article
 is stored in the PostgreSQL database. Docker is used to deploy the
 application.
 
+🔗 [Deployed on Heroku](https://website-simple-blog.herokuapp.com/)
+
 ## Folder structure
 
 ```text
