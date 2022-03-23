@@ -1,14 +1,17 @@
 import pg from 'pg';
 import env from '#app/env';
 
+const connectionString = `postgresql://${env.db.user}:${env.db.password}@${env.db.host}:${env.db.port}/${env.db.name}`;
 class Database {
   constructor() {
     this.client = new pg.Client({
-      user: env.db.user,
-      host: env.db.host,
-      database: env.db.name,
-      password: env.db.password,
-      port: env.db.port,
+      connectionString:
+        process.env.NODE_ENV === 'production'
+          ? process.env.DATABASE_URL
+          : connectionString,
+      ssl: {
+        rejectUnauthorized: false,
+      },
     });
   }
 }
