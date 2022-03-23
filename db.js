@@ -6,12 +6,14 @@ class Database {
   constructor() {
     this.client = new pg.Client({
       connectionString:
-        process.env.NODE_ENV === 'production'
+        process.env.NODE_ENV === 'production' && process.env.DATABASE_URL
           ? process.env.DATABASE_URL
           : connectionString,
-      ssl: {
-        rejectUnauthorized: false,
-      },
+      ssl: process.env.DATABASE_URL
+        ? {
+            rejectUnauthorized: false,
+          }
+        : false,
     });
   }
 }

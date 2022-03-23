@@ -30,7 +30,7 @@ application.
 
 - 1. Clone this repository `git clone https://github.com/sergeyyarkov/node-docker-example.git .`
 - 2. Configure enviroment variables in `docker-compose.yml` for `postgres` and `nodejs` serivces if you need to
-- 3. Build and run application with `docker compose up --build`
+- 3. Build and run application with `docker-compose up --build`
 
 ## Requirements
 
