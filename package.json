@@ -16,7 +16,7 @@
     "docker"
   ],
   "author": "Sergey Yarkov",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "nodemon": "^2.0.15"
   },
