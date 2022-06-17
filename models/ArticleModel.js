@@ -1,4 +1,5 @@
 import db from '#app/db';
+import crypto from 'node:crypto';
 
 /**
  * ArticleModel typedef
@@ -57,13 +58,14 @@ class ArticleModel {
     try {
       const count = await db.client.query('SELECT COUNT(*) FROM "articles"');
       const values = Object.values({
-        id: String(parseInt(count.rows[0].count, 10) + 1),
+        id: String(parseInt(count.rows[0].count, 10) + crypto.randomInt(100)),
         title: data.title,
         description: data.description,
         body: data.body,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       });
+
       const result = await db.client.query(
         `INSERT INTO "articles" ("id", "title", "description", "body", "created_at", "updated_at") VALUES($1, $2, $3, $4, $5, $6) RETURNING *`,
         values
