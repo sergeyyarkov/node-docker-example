@@ -7,7 +7,7 @@ articles, each article has a separate page, all data about the article
 is stored in the PostgreSQL database. Docker is used to deploy the
 application.
 
-🔗 [Deployed on Heroku](https://website-simple-blog.herokuapp.com/)
+🔗 [Deployed on Render](https://node-docker-example.onrender.com)
 
 ## Folder structure
 
@@ -28,9 +28,9 @@ application.
 
 ## How to deploy
 
-- 1. Clone this repository `git clone https://github.com/sergeyyarkov/node-docker-example.git .`
-- 2. Configure enviroment variables in `docker-compose.yml` for `postgres` and `nodejs` serivces if you need to
-- 3. Build and run application with `docker-compose up --build`
+1. Clone this repository `git clone https://github.com/sergeyyarkov/node-docker-example.git .`
+2. Configure enviroment variables in `docker-compose.yml` for `postgres` and `nodejs` serivces if you need to
+3. Build and run application with `docker-compose up --build`
 
 ## Requirements
 
